@@ -42,6 +42,19 @@ public class StaffEditFragment extends Fragment {
 	@BindView(R.id.et_staff_jobtitle)
 	EditText etStaffJobtitle;
 
+	public Staff getEditStaff() {
+		return editStaff;
+	}
+
+	public void setEditStaff(Staff editStaff) {
+		this.editStaff = editStaff;
+	}
+
+	/**
+	 * 正在编辑的人员，如果为null，则为添加人员状态
+	 */
+	private Staff editStaff;
+
 	public StaffEditFragment() {
 
 	}
@@ -66,6 +79,7 @@ public class StaffEditFragment extends Fragment {
 	public void onViewClicked(View view) {
 		switch (view.getId()) {
 			case R.id.btn_staff_ok:
+				//点击确定按钮，保存数据
 				if (checkEmpty()) {
 					int max = StaffDataHelper.getMaxStaffId();
 					Log.d("StaffEditFragment", "Staff最大Id：" + max);
@@ -78,14 +92,18 @@ public class StaffEditFragment extends Fragment {
 					staff.setIdCard(etProjectIdcard.getText().toString());
 					StaffDataHelper.addStaff(staff);
 					Toast.makeText(mActivity, "保存成功", Toast.LENGTH_SHORT).show();
-					//刷新
-					refresh();
+
 				} else {
 					Toast.makeText(mActivity, "存在未填写信息", Toast.LENGTH_SHORT).show();
 				} break;
 			case R.id.btn_staff_cancel:
+				//点击取消按钮不需要处理
 				break;
 		}
+		//fragment取消显示
+		mActivity.removeEditFragment();
+		//刷新
+		refresh();
 	}
 
 	private void refresh() {

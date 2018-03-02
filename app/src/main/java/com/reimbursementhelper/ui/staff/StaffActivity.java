@@ -19,8 +19,6 @@ import com.reimbursementhelper.base.BaseConfig;
 import com.reimbursementhelper.bean.Staff;
 import com.reimbursementhelper.data.StaffDataHelper;
 
-import org.litepal.crud.DataSupport;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,14 +32,14 @@ public class StaffActivity extends BaseActivity {
 	@BindView(R.id.layout_staff)
 	FrameLayout layoutStaff;
 
+	StaffEditFragment staffEditFragment;
+
 	List<Staff> staffList;
 	MyStaffAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		transaction.replace(R.id.layout_staff, new StaffEditFragment());
-		transaction.commitAllowingStateLoss();
+		staffEditFragment = new StaffEditFragment();
 		staffList = StaffDataHelper.getStaffList();
 		for (Staff staff : staffList) {
 			Log.d("StaffActivity", "staff:" + staff);
@@ -109,6 +107,27 @@ public class StaffActivity extends BaseActivity {
 				return false;
 			}
 		});
+		btnStaffAdd.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//点击添加时显示fragment
+				android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+				staffEditFragment.setEditStaff(null);
+				transaction.add(R.id.layout_staff, staffEditFragment);
+				transaction.commitAllowingStateLoss();
+				//隐藏按钮
+				btnStaffAdd.setVisibility(View.GONE);
+			}
+		});
+	}
+
+	/**
+	 * 隐藏编辑Fragment
+	 */
+	public void removeEditFragment() {
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		transaction.remove(staffEditFragment);
+		transaction.commitAllowingStateLoss();
 	}
 
 	@Override
@@ -131,34 +150,12 @@ public class StaffActivity extends BaseActivity {
 
 	}
 
-
-	void testCreate() {
-		Staff staff = new Staff();
-		staff.setName("张三");
-		staff.setJobTitle("项目经理");
-		staff.setIdCard("441284*************");
-		staff.setDepartment("开发部");
-		staff.setBankCard("621***************");
-		staff.save();
-
-		Staff staff2 = new Staff();
-		staff2.setName("李四");
-		staff2.setJobTitle("运营经历");
-		staff2.setIdCard("441233*************");
-		staff2.setDepartment("运营部");
-		staff2.setBankCard("622***************");
-		staff2.save();
-
-		List<Staff> staffs = DataSupport.findAll(Staff.class);
-		for (Staff staff1 : staffs) {
-			Toast.makeText(this, "staff1:" + staff1.getName(), Toast.LENGTH_SHORT).show();
-			Log.d("StaffActivity", "staff1:" + staff1);
-		}
-	}
-
 	public void refresh() {
+		//重新抓取人员数据
 		staffList.clear();
 		staffList.addAll(StaffDataHelper.getStaffList());
 		adapter.notifyDataSetChanged();
+		//重置按钮状态
+		btnStaffAdd.setVisibility(View.VISIBLE);
 	}
 }
