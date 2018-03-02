@@ -36,6 +36,9 @@ public class StaffActivity extends BaseActivity {
 
 	List<Staff> staffList;
 	MyStaffAdapter adapter;
+
+	boolean isEditFragmentShowing = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,7 +53,10 @@ public class StaffActivity extends BaseActivity {
 		adapter.setOnEditClickListener(new MyStaffAdapter.OnClickListener() {
 			@Override
 			public void onClick(Staff staff) {
-				Toast.makeText(StaffActivity.this, "编辑", Toast.LENGTH_SHORT).show();
+				addEditFragment();
+				staffEditFragment.setEditStaff(staff);
+				//隐藏按钮
+				btnStaffAdd.setVisibility(View.GONE);
 			}
 		});
 		adapter.setOnDelClickListener(new MyStaffAdapter.OnClickListener() {
@@ -111,14 +117,26 @@ public class StaffActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				//点击添加时显示fragment
-				android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+				addEditFragment();
 				staffEditFragment.setEditStaff(null);
-				transaction.add(R.id.layout_staff, staffEditFragment);
-				transaction.commitAllowingStateLoss();
 				//隐藏按钮
 				btnStaffAdd.setVisibility(View.GONE);
 			}
 		});
+
+	}
+
+	/**
+	 * 显示正在编辑的Fragment，若正在显示则不做处理
+	 */
+	private void addEditFragment() {
+		if (! isEditFragmentShowing) {
+			//点击编辑时显示fragment
+			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			transaction.add(R.id.layout_staff, staffEditFragment);
+			transaction.commitAllowingStateLoss();
+			isEditFragmentShowing = true;
+		}
 	}
 
 	/**
@@ -128,6 +146,7 @@ public class StaffActivity extends BaseActivity {
 		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.remove(staffEditFragment);
 		transaction.commitAllowingStateLoss();
+		isEditFragmentShowing = false;
 	}
 
 	@Override

@@ -30,8 +30,8 @@ public class StaffEditFragment extends Fragment {
 	EditText etStaffName;
 	@BindView(R.id.et_staff_department)
 	EditText etStaffDepartment;
-	@BindView(R.id.et_project_idcard)
-	EditText etProjectIdcard;
+	@BindView(R.id.et_staff_idcard)
+	EditText etStaffIdcard;
 	@BindView(R.id.et_staff_bankcard)
 	EditText etStaffBankcard;
 	@BindView(R.id.btn_staff_ok)
@@ -77,27 +77,44 @@ public class StaffEditFragment extends Fragment {
 
 	@OnClick({R.id.btn_staff_ok, R.id.btn_staff_cancel})
 	public void onViewClicked(View view) {
+		boolean result = false;
 		switch (view.getId()) {
 			case R.id.btn_staff_ok:
+				//检查
+				if (isItemEmpty()) {
+					Toast.makeText(mActivity, "存在未填写信息！", Toast.LENGTH_SHORT).show();
+					return;
+				}
 				//点击确定按钮，保存数据
-				if (checkEmpty()) {
+				Staff staff = new Staff();
+				staff.setName(etStaffName.getText().toString());
+				staff.setJobTitle(etStaffJobtitle.getText().toString());
+				staff.setDepartment(etStaffDepartment.getText().toString());
+				staff.setBankCard(etStaffBankcard.getText().toString());
+				staff.setIdCard(etStaffIdcard.getText().toString());
+				if (editStaff == null) {
+					//添加
 					int max = StaffDataHelper.getMaxStaffId();
 					Log.d("StaffEditFragment", "Staff最大Id：" + max);
-					Staff staff = new Staff();
 					staff.setId(max + 1);
-					staff.setName(etStaffName.getText().toString());
-					staff.setJobTitle(etStaffJobtitle.getText().toString());
-					staff.setDepartment(etStaffDepartment.getText().toString());
-					staff.setBankCard(etStaffBankcard.getText().toString());
-					staff.setIdCard(etProjectIdcard.getText().toString());
-					StaffDataHelper.addStaff(staff);
-					Toast.makeText(mActivity, "保存成功", Toast.LENGTH_SHORT).show();
-
+					result = StaffDataHelper.addStaff(staff);
 				} else {
-					Toast.makeText(mActivity, "存在未填写信息", Toast.LENGTH_SHORT).show();
-				} break;
+					//编辑
+					staff.setId(editStaff.getId());
+					result = (1 == staff.update(editStaff.getId()));
+				}
+				if (result) {
+					Toast.makeText(mActivity, "保存成功", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(mActivity, "保存失败", Toast.LENGTH_SHORT).show();
+					Log.d("StaffEditFragment", "修改人员失败");
+				}
 			case R.id.btn_staff_cancel:
-				//点击取消按钮不需要处理
+				//点击取消按钮
+				//fragment取消显示
+				mActivity.removeEditFragment();
+				//刷新
+				refresh();
 				break;
 		}
 		//fragment取消显示
@@ -110,8 +127,8 @@ public class StaffEditFragment extends Fragment {
 		mActivity.refresh();
 	}
 
-	private boolean checkEmpty() {
-		return !(etProjectIdcard.getText().toString().equals("") || etStaffBankcard.toString().equals(
-				"") || etStaffDepartment.toString().equals("") || etStaffName.toString().equals(""));
+	private boolean isItemEmpty() {
+		return (etStaffIdcard.getText().toString().equals("") || etStaffBankcard.getText().toString().equals(
+				"") || etStaffDepartment.getText().toString().equals("") || etStaffName.toString().equals("") || etStaffJobtitle.getText().toString().equals(""));
 	}
 }

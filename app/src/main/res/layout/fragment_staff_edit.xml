@@ -53,7 +53,7 @@
 
 		<EditText
 			android:lines="1"
-			android:id="@+id/et_project_idcard"
+			android:id="@+id/et_staff_idcard"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:ems="12"

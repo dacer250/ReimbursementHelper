@@ -16,8 +16,8 @@ public class StaffDataHelper {
 		return DataSupport.findAll(Staff.class, false);
 	}
 
-	public static void addStaff(Staff staff) {
-		staff.save();
+	public static boolean addStaff(Staff staff) {
+		return staff.save();
 	}
 
 	public static int getMaxStaffId() {
