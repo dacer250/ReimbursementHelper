@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 xmlns:tools="http://schemas.android.com/tools"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			  android:orientation="vertical"
+			 tools:context="com.reimbursementhelper.ui.project.ProjectIntroFragment">
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_project_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:hint="项目名"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/et_project_year"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:hint="年度"
+			android:lines="1"
+			android:inputType="number"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/et_project_department"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:lines="1"
+			android:hint="项目承办单位" />
+	</android.support.design.widget.TextInputLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp">
+
+		<TextView
+			android:textSize="18sp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="分    类："
+			android:textColor="@color/blackText1"/>
+
+		<Spinner
+			android:id="@+id/spinner_project_category"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:entries="@array/project_category"/>
+	</LinearLayout>
+
+	<Button
+		android:id="@+id/btn_project_budget"
+		android:layout_marginTop="20dp"
+		android:text="预算设置"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+</LinearLayout>

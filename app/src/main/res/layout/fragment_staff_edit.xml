@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 xmlns:tools="http://schemas.android.com/tools"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 android:orientation="vertical"
+			 tools:context="com.reimbursementhelper.ui.staff.StaffEditFragment">
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_staff_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:textSize="16sp"
+			android:hint="姓名"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_staff_jobtitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:textSize="16sp"
+			android:hint="职务职称"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_staff_department"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:textSize="16sp"
+			android:hint="单位部门"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_project_idcard"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:inputType="number"
+			android:textSize="16sp"
+			android:hint="身份证"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:lines="1"
+			android:textSize="16sp"
+			android:id="@+id/et_staff_bankcard"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="12"
+			android:inputType="number"
+			android:hint="银行卡"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<Button
+			android:id="@+id/btn_staff_ok"
+			android:text="确定"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		<Button
+			android:id="@+id/btn_staff_cancel"
+			android:text="取消"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+</LinearLayout>

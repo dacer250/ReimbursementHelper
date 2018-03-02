@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent">
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="10dp">
+		<TextView
+			android:text="用途"
+			android:textSize="20sp"
+			android:textColor="@color/blackText1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		<EditText
+			android:id="@+id/et_item_add_use"
+			android:ems="5"
+			android:layout_marginLeft="20dp"
+			android:text="交通"
+			android:lines="1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="10dp"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="金额"
+			android:textColor="@color/blackText1"
+			android:textSize="20sp"/>
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_item_add_money"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:ems="5"
+			android:inputType="numberDecimal"
+			android:text="100"/>
+	</LinearLayout>
+</LinearLayout>

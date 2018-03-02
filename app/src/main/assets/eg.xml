@@ -1,0 +1,19 @@
+<projectList>
+	<project id="1" name="项目A" year="2018" category="课题" department="农科院研究所">
+		<budgetList>
+			<budget name="设备费" total="1000.0" remain="1000.0" />
+			<budget name="材料费" total="1200.0" remain="1200.0" />
+			<budget name="测试化验加工外协费" total="1300.0" remain="1300.0" />
+			<budget name="燃料动力费" total="500" remain="500.0" />
+			<budget name="差旅费/会议费/国际合作与交流费" total="500.0" remain="500.0" />
+			<budget name="出版/文献/信息传播/知识产权事务费" total="1000.0" remain="1000.0" />
+			<budget name="劳务费" total="1200.0" remain="1200.0" />
+			<budget name="人员费" total="1400.0" remain="1400.0" />
+			<budget name="专家资讯费" total="1400.0" remain="1400.0" />
+			<budget name="间接成本" total="1200.0" remain="1200.0" />
+			<budget name="管理成本" total="1200.0" remain="1200.0" />
+			<budget name="绩效支出" total="1200.0" remain="1200.0" />
+			<budget name="直接费用其他支出" total="1000.0" remain="1000.0" />
+		</budgetList>
+	</project>
+</projectList>

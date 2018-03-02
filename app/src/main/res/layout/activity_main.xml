@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingTop="80dp"
+	android:stretchColumns="*"
+	android:animateLayoutChanges="true"
+	android:background="@color/whiteBg">
+
+	<TableRow>
+
+		<RelativeLayout
+			android:id="@+id/rv_main_staff"
+			style="@style/MainLayoutStyle">
+
+			<TextView
+				style="@style/MainTextStyle"
+				android:text="人员"/>
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/rv_main_project"
+			style="@style/MainLayoutStyle">
+
+			<TextView
+				style="@style/MainTextStyle"
+				android:text="项目"/>
+		</RelativeLayout>
+	</TableRow>
+
+	<TableRow>
+
+		<RelativeLayout
+			android:id="@+id/rv_main_reimb"
+			style="@style/MainLayoutStyle">
+
+			<TextView
+				style="@style/MainTextStyle"
+				android:text="填单"/>
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/rv_main_record"
+			style="@style/MainLayoutStyle">
+
+			<TextView
+				style="@style/MainTextStyle"
+				android:text="记录"/>
+		</RelativeLayout>
+	</TableRow>
+</TableLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="project_category">
+		<item>课题</item>
+		<item>投标</item>
+		<item>其他</item>
+	</string-array>
+</resources>

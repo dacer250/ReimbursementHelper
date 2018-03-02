@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 添加报账科目对话框 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent">
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="20dp"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="报账金额"
+			android:textColor="@color/blackText1"
+			android:textSize="20sp"/>
+
+		<EditText
+			android:lines="1"
+			android:id="@+id/et_budget_reimb"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:ems="5"
+			android:inputType="numberDecimal"
+			android:text="100"/>
+	</LinearLayout>
+</LinearLayout>
