@@ -64,4 +64,9 @@ public class Util {
 		java.util.Date date = Calendar.getInstance().getTime();
 		return new SimpleDateFormat("yyyyMMddHHmmssSS", Locale.CHINA).format(date);
 	}
+
+	public static String getDateTimePretty() {
+		java.util.Date date = Calendar.getInstance().getTime();
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(date);
+	}
 }

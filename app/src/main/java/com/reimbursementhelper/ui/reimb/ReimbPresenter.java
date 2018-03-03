@@ -9,12 +9,15 @@ import android.widget.Toast;
 import com.reimbursementhelper.base.Global;
 import com.reimbursementhelper.base.MyApplication;
 import com.reimbursementhelper.bean.Project;
+import com.reimbursementhelper.bean.Record;
 import com.reimbursementhelper.bean.Staff;
 import com.reimbursementhelper.data.ProjectDataHelper;
 import com.reimbursementhelper.data.StaffDataHelper;
 import com.reimbursementhelper.ui.main.MainActivity;
+import com.reimbursementhelper.util.Util;
 
 import org.dom4j.DocumentException;
+import org.litepal.crud.DataSupport;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -176,8 +179,29 @@ public class ReimbPresenter {
 			e.printStackTrace();
 		}
 
+		//保存到记录
+		Record record = new Record();
+		record.setId(DataSupport.max(Record.class, "id", Integer.class) + 1);
+		record.setProjectId(global.curProject.getId());
+		record.setStaffId(global.curStaff.getId());
+		record.setReimb(getTotalReimb(global.reimbMap));
+		record.setDateTime(Util.getDateTimePretty());
+		boolean result = record.save();
+		if (result) {
+			Log.d("ReimbPresenter", "记录保存成功：" + record);
+		} else {
+			Log.d("ReimbPresenter", "记录保存失败：" + record);
+		}
 		//清空本次报账
 		mActivity.getGlobal().reimbMap = new HashMap<>();
+	}
+
+	double getTotalReimb(Map<String, Double> reimbMap) {
+		double total = 0.0;
+		for (Double value : reimbMap.values()) {
+			total += value;
+		}
+		return total;
 	}
 
 	/**

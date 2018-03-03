@@ -55,7 +55,6 @@ public class ReimbActivity extends BaseActivity {
 	public void initView() {
 		Project project = mPresenter.getCurProject();
 		itemList = new ArrayList();
-		setShowingProject(project);
 		adapter = new SimpleAdapter(this, itemList, R.layout.item_budget,
 				new String[]{"name", "total", "remain", "reimb"},
 				new int[]{R.id.tv_budget_name, R.id.tv_budget_total, R.id.tv_budget_remain, R.id.tv_budget_reimb});
@@ -130,7 +129,7 @@ public class ReimbActivity extends BaseActivity {
 			public void onNothingSelected(AdapterView<?> parent) {
 			}
 		});
-
+		setShowingProject(project);
 	}
 
 	private void setShowingProject(Project project) {
