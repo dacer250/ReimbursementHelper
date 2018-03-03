@@ -23,6 +23,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 删除键会不小心按到
+ */
 public class StaffActivity extends BaseActivity {
 
 	@BindView(R.id.lv_staff)
@@ -53,8 +56,14 @@ public class StaffActivity extends BaseActivity {
 		adapter.setOnEditClickListener(new MyStaffAdapter.OnClickListener() {
 			@Override
 			public void onClick(Staff staff) {
-				addEditFragment();
+				//设置编辑人员
 				staffEditFragment.setEditStaff(staff);
+				//如果正在显示则更新
+				if (isEditFragmentShowing) {
+					staffEditFragment.refreshEditTexts();
+				}
+				//显示编辑Fragment
+				addEditFragment();
 				//隐藏按钮
 				btnStaffAdd.setVisibility(View.GONE);
 			}
@@ -116,9 +125,14 @@ public class StaffActivity extends BaseActivity {
 		btnStaffAdd.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				staffEditFragment.setEditStaff(null);
+				//如果正在显示则更新
+				if (isEditFragmentShowing) {
+					staffEditFragment.refreshEditTexts();
+				}
 				//点击添加时显示fragment
 				addEditFragment();
-				staffEditFragment.setEditStaff(null);
+				Log.d("momingqi", "onClick: 执行原活动剩余代码");
 				//隐藏按钮
 				btnStaffAdd.setVisibility(View.GONE);
 			}
@@ -134,7 +148,7 @@ public class StaffActivity extends BaseActivity {
 			//点击编辑时显示fragment
 			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			transaction.add(R.id.layout_staff, staffEditFragment);
-			transaction.commitAllowingStateLoss();
+			transaction.commit();
 			isEditFragmentShowing = true;
 		}
 	}
@@ -145,7 +159,7 @@ public class StaffActivity extends BaseActivity {
 	public void removeEditFragment() {
 		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.remove(staffEditFragment);
-		transaction.commitAllowingStateLoss();
+		transaction.commit();
 		isEditFragmentShowing = false;
 	}
 
@@ -176,5 +190,7 @@ public class StaffActivity extends BaseActivity {
 		adapter.notifyDataSetChanged();
 		//重置按钮状态
 		btnStaffAdd.setVisibility(View.VISIBLE);
+		//隐藏编辑fragment
+		removeEditFragment();
 	}
 }

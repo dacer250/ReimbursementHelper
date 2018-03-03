@@ -55,21 +55,7 @@ public class ReimbActivity extends BaseActivity {
 	public void initView() {
 		Project project = mPresenter.getCurProject();
 		itemList = new ArrayList();
-		Map<String, Double> totalMap = project.getTotalMap();
-		Map<String, Double> remainMap = project.getRemainMap();
-		for (String key : totalMap.keySet()) {
-			Map<String, String> map = new HashMap<>();
-			map.put("name", key);
-			map.put("total", "" + totalMap.get(key));
-			map.put("remain", "" + remainMap.get(key));
-			//处理用户回退到添加报销项目的活动
-			if (getGlobal().reimbMap != null && getGlobal().reimbMap.get(key) != null) {
-				map.put("reimb", "" + getGlobal().reimbMap.get(key));
-			} else {
-				map.put("reimb", "0.0");
-			}
-			itemList.add(map);
-		}
+		setShowingProject(project);
 		adapter = new SimpleAdapter(this, itemList, R.layout.item_budget,
 				new String[]{"name", "total", "remain", "reimb"},
 				new int[]{R.id.tv_budget_name, R.id.tv_budget_total, R.id.tv_budget_remain, R.id.tv_budget_reimb});
@@ -126,6 +112,7 @@ public class ReimbActivity extends BaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				mPresenter.setCurProject(position);
+				setShowingProject(mPresenter.getCurProject());
 			}
 
 			@Override
@@ -137,7 +124,6 @@ public class ReimbActivity extends BaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				mPresenter.setCurStaff(position);
-
 			}
 
 			@Override
@@ -145,6 +131,27 @@ public class ReimbActivity extends BaseActivity {
 			}
 		});
 
+	}
+
+	private void setShowingProject(Project project) {
+		//先清空itemList
+		itemList.clear();
+		Map<String, Double> totalMap = project.getTotalMap();
+		Map<String, Double> remainMap = project.getRemainMap();
+		for (String key : totalMap.keySet()) {
+			Map<String, String> map = new HashMap<>();
+			map.put("name", key);
+			map.put("total", "" + totalMap.get(key));
+			map.put("remain", "" + remainMap.get(key));
+			//处理用户回退到添加报销项目的活动
+			if (getGlobal().reimbMap != null && getGlobal().reimbMap.get(key) != null) {
+				map.put("reimb", "" + getGlobal().reimbMap.get(key));
+			} else {
+				map.put("reimb", "0.0");
+			}
+			itemList.add(map);
+		}
+		adapter.notifyDataSetChanged();
 	}
 
 	public void setProjectSpinnerData(List<String> list, int curProjectPosition) {
