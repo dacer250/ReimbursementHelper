@@ -62,12 +62,15 @@ public class ReimbPresenter {
 	}
 
 	public int getCurStaffPosition() {
+		if (mActivity.getGlobal().curStaff == null) {
+			return 0;
+		}
 		for (int i = 0; i < staffList.size(); i++) {
 			if (staffList.get(i).getId() == mActivity.getGlobal().curStaff.getId()) {
 				return i;
 			}
 		}
-		throw new IllegalStateException("当前人员不存在！");
+		return 0;
 	}
 
 	public List<String> getProjectsNameList() {
@@ -165,9 +168,7 @@ public class ReimbPresenter {
 		//保存修改到xml
 		try {
 			ProjectDataHelper.saveProjectRemain(project);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (DocumentException e) {
+		} catch (IOException | DocumentException e) {
 			e.printStackTrace();
 		}
 
@@ -182,8 +183,8 @@ public class ReimbPresenter {
 		//保存到记录
 		Record record = new Record();
 		record.setId(DataSupport.max(Record.class, "id", Integer.class) + 1);
-		record.setProjectId(global.curProject.getId());
-		record.setStaffId(global.curStaff.getId());
+		record.setProject(global.curProject.getName());
+		record.setStaff(global.curStaff.getName());
 		record.setReimb(getTotalReimb(global.reimbMap));
 		record.setDateTime(Util.getDateTimePretty());
 		boolean result = record.save();

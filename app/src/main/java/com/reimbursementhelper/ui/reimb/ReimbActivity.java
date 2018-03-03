@@ -2,7 +2,10 @@ package com.reimbursementhelper.ui.reimb;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,6 +41,8 @@ public class ReimbActivity extends BaseActivity {
 	Spinner spinnerReimbProject;
 	@BindView(R.id.spinner_reimb_staff)
 	Spinner spinnerReimbStaff;
+	@BindView(R.id.toolbar)
+	Toolbar toolbar;
 
 
 	@Override
@@ -132,6 +137,24 @@ public class ReimbActivity extends BaseActivity {
 		setShowingProject(project);
 	}
 
+	@Override
+	public void initToolbar() {
+		setSupportActionBar(toolbar);
+		ActionBar actionBar = getSupportActionBar();
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				this.onBackPressed();
+		}
+		return true;
+	}
+
 	private void setShowingProject(Project project) {
 		//先清空itemList
 		itemList.clear();
@@ -154,14 +177,16 @@ public class ReimbActivity extends BaseActivity {
 	}
 
 	public void setProjectSpinnerData(List<String> list, int curProjectPosition) {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list);
 		adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spinnerReimbProject.setAdapter(adapter);
 		spinnerReimbProject.setSelection(curProjectPosition);
 	}
 
 	public void setStaffSpinnerData(List<String> list, int curStaffPosition) {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list);
 		adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spinnerReimbStaff.setAdapter(adapter);
 		spinnerReimbStaff.setSelection(curStaffPosition);

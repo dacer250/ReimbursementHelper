@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -33,6 +35,8 @@ public class MainActivity extends BaseActivity implements MainConstract.View {
 	RelativeLayout rvMainReimb;
 	@BindView(R.id.rv_main_record)
 	RelativeLayout rvMainRecord;
+	@BindView(R.id.toolbar)
+	Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,11 @@ public class MainActivity extends BaseActivity implements MainConstract.View {
 		ButterKnife.bind(this);
 		mPresenter.bindView(this);
 		//权限申请
-		if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-				!= PackageManager.PERMISSION_GRANTED) //还没获取到拨电话权限
+		if (ContextCompat.checkSelfPermission(MainActivity.this,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) //还没获取到拨电话权限
 		{
-			ActivityCompat.requestPermissions(MainActivity.this, new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, 1); //参数：上下文，权限列表，请求码
+			ActivityCompat.requestPermissions(MainActivity.this,
+					new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); //参数：上下文，权限列表，请求码
 		}
 
 	}
@@ -58,6 +63,14 @@ public class MainActivity extends BaseActivity implements MainConstract.View {
 		}
 	}
 
+	public void initToolbar() {
+		setSupportActionBar(toolbar);
+		ActionBar actionBar = getSupportActionBar();
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(false);
+		}
+	}
+
 	@Override
 	public int getContentView() {
 		return R.layout.activity_main;
@@ -65,7 +78,7 @@ public class MainActivity extends BaseActivity implements MainConstract.View {
 
 	@Override
 	public void initView() {
-
+		initToolbar();
 	}
 
 	@Override

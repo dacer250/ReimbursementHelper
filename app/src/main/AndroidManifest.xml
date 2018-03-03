@@ -13,6 +13,7 @@
 		android:theme="@style/AppTheme" >
 
 		<activity android:name=".ui.main.MainActivity"
+				  android:label="报销助手"
 			android:launchMode="singleTask">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -21,19 +22,24 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".ui.ItemSelect.ItemSelectActivity"
+				  android:label="报销用途"
 				  android:launchMode="singleTask">
 
 		</activity>
 		<activity android:name=".ui.record.RecordActivity"
+				  android:label="记录"
 				  android:launchMode="singleTask">
 		</activity>
 		<activity android:name=".ui.project.ProjectActivity"
+				  android:label="项目"
 				  android:launchMode="singleTask">
 		</activity>
 		<activity android:name=".ui.staff.StaffActivity"
+				  android:label="人员"
 				  android:launchMode="singleTask">
 		</activity>
 		<activity android:name=".ui.reimb.ReimbActivity"
+				  android:label="报账信息"
 				  android:launchMode="singleTask">
 		</activity>
 	</application>

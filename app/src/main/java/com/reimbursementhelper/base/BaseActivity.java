@@ -16,11 +16,13 @@ public abstract class BaseActivity extends AppCompatActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(getContentView());
 		ButterKnife.bind(this);
+		initToolbar();
 		initView();
 		initListener();
 		initData();
 	}
 
+	public abstract void initToolbar();
 
 	public Global getGlobal() {
 		return ((MyApplication) getApplication()).getGlobal();

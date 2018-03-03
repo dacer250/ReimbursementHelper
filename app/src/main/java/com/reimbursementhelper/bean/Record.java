@@ -10,13 +10,13 @@ import org.litepal.crud.DataSupport;
 public class Record extends DataSupport{
 	private int id;             //序号
 	private String dateTime;            //报账时间
-	private int projectId;      //项目序号
-	private int staffId;        //人员序号
+	private String project;      //项目
+	private String staff;        //人员
 	private double reimb;          //报账金额
 
 	@Override
 	public String toString() {
-		return "Record{" + "id=" + id + ", dateTime='" + dateTime + '\'' + ", projectId=" + projectId + ", staffId=" + staffId + ", reimb=" + reimb + '}';
+		return "Record{" + "id=" + id + ", dateTime='" + dateTime + '\'' + ", project='" + project + '\'' + ", staff='" + staff + '\'' + ", reimb=" + reimb + '}';
 	}
 
 	public int getId() {
@@ -35,20 +35,20 @@ public class Record extends DataSupport{
 		this.dateTime = dateTime;
 	}
 
-	public int getProjectId() {
-		return projectId;
+	public String getProject() {
+		return project;
 	}
 
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setProject(String project) {
+		this.project = project;
 	}
 
-	public int getStaffId() {
-		return staffId;
+	public String getStaff() {
+		return staff;
 	}
 
-	public void setStaffId(int staffId) {
-		this.staffId = staffId;
+	public void setStaff(String staff) {
+		this.staff = staff;
 	}
 
 	public double getReimb() {

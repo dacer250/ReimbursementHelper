@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,7 +37,7 @@ public class StaffActivity extends BaseActivity {
 	@BindView(R.id.btn_staff_add)
 	Button btnStaffAdd;
 	@BindView(R.id.layout_staff)
-	FrameLayout layoutStaff;
+	LinearLayout layoutStaff;
 
 	StaffEditFragment staffEditFragment;
 
@@ -41,6 +45,8 @@ public class StaffActivity extends BaseActivity {
 	MyStaffAdapter adapter;
 
 	boolean isEditFragmentShowing = false;
+	@BindView(R.id.toolbar)
+	Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,8 @@ public class StaffActivity extends BaseActivity {
 							Toast.LENGTH_SHORT).show();
 				} else {
 					staff.delete();
-					Toast.makeText(StaffActivity.this, staff.getName() + " 删除成功！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(StaffActivity.this, staff.getName() + " 删除成功！",
+							Toast.LENGTH_SHORT).show();
 					//如果删除的人员处于默认状态则传递给序号最小的未删除人员
 					if (BaseConfig.instance.defaultStaffId == staff.getId()) {
 						int minId = StaffDataHelper.getMinStaffId();
@@ -100,25 +107,23 @@ public class StaffActivity extends BaseActivity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, final int position,
 			                               long id) {
-				new AlertDialog.Builder(StaffActivity.this)
-						.setMessage("是否设为默认人员？")
-						.setPositiveButton("是", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								int id = staffList.get(position).getId();
-								//修改默认序号
-								BaseConfig.instance.defaultStaffId = id;
-								//修改当前人员
-								getGlobal().curStaff = StaffDataHelper.getStaffById(id);
-								//保存到sp中
-								SharedPreferences.Editor editor = getSharedPreferences("config", Context.MODE_PRIVATE).edit();
-								editor.putInt("defaultStaffId", id);
-								editor.apply();
-								adapter.notifyDataSetInvalidated();
-							}
-						})
-						.setNeutralButton("取消", null)
-						.show();
+				new AlertDialog.Builder(StaffActivity.this).setMessage(
+						"是否设为默认人员？").setPositiveButton("是", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						int id = staffList.get(position).getId();
+						//修改默认序号
+						BaseConfig.instance.defaultStaffId = id;
+						//修改当前人员
+						getGlobal().curStaff = StaffDataHelper.getStaffById(id);
+						//保存到sp中
+						SharedPreferences.Editor editor = getSharedPreferences("config",
+								Context.MODE_PRIVATE).edit();
+						editor.putInt("defaultStaffId", id);
+						editor.apply();
+						adapter.notifyDataSetInvalidated();
+					}
+				}).setNeutralButton("取消", null).show();
 				return false;
 			}
 		});
@@ -144,9 +149,9 @@ public class StaffActivity extends BaseActivity {
 	 * 显示正在编辑的Fragment，若正在显示则不做处理
 	 */
 	private void addEditFragment() {
-		if (! isEditFragmentShowing) {
+		if (!isEditFragmentShowing) {
 			//点击编辑时显示fragment
-			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			transaction.add(R.id.layout_staff, staffEditFragment);
 			transaction.commit();
 			isEditFragmentShowing = true;
@@ -157,7 +162,7 @@ public class StaffActivity extends BaseActivity {
 	 * 隐藏编辑Fragment
 	 */
 	public void removeEditFragment() {
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.remove(staffEditFragment);
 		transaction.commit();
 		isEditFragmentShowing = false;
@@ -192,5 +197,23 @@ public class StaffActivity extends BaseActivity {
 		btnStaffAdd.setVisibility(View.VISIBLE);
 		//隐藏编辑fragment
 		removeEditFragment();
+	}
+
+	@Override
+	public void initToolbar() {
+		setSupportActionBar(toolbar);
+		ActionBar actionBar = getSupportActionBar();
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				this.onBackPressed();
+		}
+		return true;
 	}
 }
