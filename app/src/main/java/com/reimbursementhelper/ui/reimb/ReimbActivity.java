@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,7 +59,6 @@ public class ReimbActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		Project project = mPresenter.getCurProject();
 		itemList = new ArrayList();
 		adapter = new SimpleAdapter(this, itemList, R.layout.item_budget,
 				new String[]{"name", "total", "remain", "reimb"},
@@ -128,13 +128,14 @@ public class ReimbActivity extends BaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				mPresenter.setCurStaff(position);
+				Log.d("ReimbActivity", "onItemSeleted");;
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
+				Log.d("ReimbActivity", "onNotingSeleted");
 			}
 		});
-		setShowingProject(project);
 	}
 
 	@Override

@@ -2,11 +2,15 @@ package com.reimbursementhelper.ui.record;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.reimbursementhelper.R;
 import com.reimbursementhelper.base.BaseActivity;
@@ -54,6 +58,35 @@ public class RecordActivity extends BaseActivity {
 				new int[]{R.id.tv_record_id, R.id.tv_record_project, R.id.tv_record_staff, R.id.tv_record_reimb, R.id.tv_record_time});
 		lvRecord.setAdapter(adapter);
 		lvRecord.setDividerHeight(1);
+		lvRecord.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, final int position,
+			                               long id) {
+				PopupMenu popupMenu = new PopupMenu(RecordActivity.this, view);
+				popupMenu.inflate(R.menu.record_item);
+				popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+					@Override
+					public boolean onMenuItemClick(MenuItem item) {
+						if (item.getItemId() == R.id.menu_record_item_del) {
+							//删除
+							int recordId = Integer.parseInt(itemList.get(position).get("id"));
+							int result = DataSupport.delete(Record.class, recordId);
+							if (result == 1) {
+								Toast.makeText(RecordActivity.this, "删除成功！",
+										Toast.LENGTH_SHORT).show();
+							} else {
+								Toast.makeText(RecordActivity.this, "删除失败！",
+										Toast.LENGTH_SHORT).show();
+							}
+							updateItemList();
+						}
+						return true;
+					}
+				});
+				popupMenu.show();
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -81,6 +114,13 @@ public class RecordActivity extends BaseActivity {
 
 	@Override
 	public void initData() {
+		updateItemList();
+	}
+
+	private void updateItemList() {
+		//清空
+		itemList.clear();
+		//抓取
 		List<Record> recordList = DataSupport.findAll(Record.class);
 		Log.d("RecordActivity", "所有记录：");
 		Log.d("RecordActivity", "recordList:" + recordList);

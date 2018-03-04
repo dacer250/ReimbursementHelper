@@ -31,14 +31,16 @@
 
 		<Button
 			android:id="@+id/btn_item_add"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1"
 			android:layout_height="wrap_content"
 			android:drawableLeft="@drawable/ic_add_red_300_18dp"
 			android:text="添加报销条目"/>
 
 		<Button
 			android:id="@+id/btn_item_enter"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1"
 			android:layout_height="wrap_content"
 			android:drawableLeft="@drawable/ic_arrow_forward_red_400_18dp"
 			android:text="报销"/>

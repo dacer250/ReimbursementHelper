@@ -53,12 +53,15 @@ public class ReimbPresenter {
 	}
 
 	public int getCurProjectPosition() {
+		if (mActivity.getGlobal().curProject == null) {
+			return 0;
+		}
 		for (int i = 0; i < projectList.size(); i++) {
 			if (projectList.get(i).getId() == mActivity.getGlobal().curProject.getId()) {
 				return i;
 			}
 		}
-		throw new IllegalStateException("当前项目不存在！");
+		return 0;
 	}
 
 	public int getCurStaffPosition() {
