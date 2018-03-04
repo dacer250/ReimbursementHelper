@@ -60,14 +60,13 @@ public class ProjectIntroFragment extends Fragment {
 
 		if (global.newProject == null) {
 			global.newProject = new Project();
-			this.newProject = global.newProject;
-		} else {
-			//之前已经创建项目
-			this.newProject = global.newProject;
-			etProjectName.setText(newProject.getName());
-			etProjectYear.setText(newProject.getYear());
-			etProjectDepartment.setText(newProject.getDepartment());
 		}
+		//之前已经创建项目
+		this.newProject = global.newProject;
+		etProjectName.setText(newProject.getName());
+		etProjectYear.setText(newProject.getYear());
+		etProjectDepartment.setText(newProject.getDepartment());
+
 		btnProjectBudget.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

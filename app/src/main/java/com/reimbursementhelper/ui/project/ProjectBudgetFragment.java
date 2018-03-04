@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.reimbursementhelper.R;
 import com.reimbursementhelper.bean.Project;
@@ -105,7 +104,13 @@ public class ProjectBudgetFragment extends Fragment {
 				if (line != null) {
 					Map<String, String> map = new HashMap<>();
 					map.put("name", line);
-					map.put("money", "0");
+					Map<String,Double> totalMap = mActivity.getGlobal().newProject.getTotalMap();
+					if (totalMap != null) {
+						double total = totalMap.get(line);
+						map.put("money", "" + total);
+					} else {
+						map.put("money", "0");
+					}
 					list.add(map);
 				} else {
 					break;
@@ -145,19 +150,36 @@ public class ProjectBudgetFragment extends Fragment {
 
 	@OnClick(R.id.btn_budget_submit)
 	public void onViewClicked() {
-		//设置序号为已保存项目的最大序号加1
-		mActivity.getGlobal().newProject.setId(ProjectDataHelper.getMaxProjectId() + 1);
-		//提交
+		//保存状态
 		save();
-		Log.d("ProjectBudgetFragment",
-				"mActivity.getGlobal().newProject:" + mActivity.getGlobal().newProject);
-		//保存到xml
-		try {
-			ProjectDataHelper.addProject(mActivity.getGlobal().newProject);
-			Toast.makeText(mActivity, "保存成功！", Toast.LENGTH_SHORT).show();
-		} catch (IOException | DocumentException e) {
-			e.printStackTrace();
+		//根据id判断是修改还是添加
+		if (mActivity.getGlobal().newProject.getId() > 0) {
+			Log.d("ProjectBudgetFragment",
+					"修改" + mActivity.getGlobal().newProject);
+			//保存修改
+			try {
+				ProjectDataHelper.deleteProject(mActivity.getGlobal().newProject);
+				ProjectDataHelper.addProject(mActivity.getGlobal().newProject);
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			//设置序号为已保存项目的最大序号加1
+			mActivity.getGlobal().newProject.setId(ProjectDataHelper.getMaxProjectId() + 1);
+
+			Log.d("ProjectBudgetFragment",
+					"mActivity.getGlobal().newProject:" + mActivity.getGlobal().newProject);
+			//保存到xml
+			try {
+				ProjectDataHelper.addProject(mActivity.getGlobal().newProject);
+				mActivity.showToast("保存成功！");
+			} catch (IOException | DocumentException e) {
+				e.printStackTrace();
+			}
 		}
+
 		//初始化
 		mActivity.getGlobal().newProject = null;
 		//回到项目界面

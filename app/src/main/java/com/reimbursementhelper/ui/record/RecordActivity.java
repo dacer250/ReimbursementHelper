@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.reimbursementhelper.R;
 import com.reimbursementhelper.base.BaseActivity;
@@ -72,11 +71,9 @@ public class RecordActivity extends BaseActivity {
 							int recordId = Integer.parseInt(itemList.get(position).get("id"));
 							int result = DataSupport.delete(Record.class, recordId);
 							if (result == 1) {
-								Toast.makeText(RecordActivity.this, "删除成功！",
-										Toast.LENGTH_SHORT).show();
+								showToast("删除成功");
 							} else {
-								Toast.makeText(RecordActivity.this, "删除失败！",
-										Toast.LENGTH_SHORT).show();
+								showToast("删除失败");
 							}
 							updateItemList();
 						}

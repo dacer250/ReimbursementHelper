@@ -63,7 +63,6 @@ public class ProjectMainFragment extends Fragment {
 			adapter = new MyProjectAdapter(getActivity(), projectList);
 			lvProjectOperate.setAdapter(adapter);
 			lvProjectOperate.setDividerHeight(0);
-			Toast.makeText(mActivity, "长按项目可设为默认状态", Toast.LENGTH_SHORT).show();
 			//长按可设为默认
 			lvProjectOperate.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 				@Override
@@ -105,7 +104,7 @@ public class ProjectMainFragment extends Fragment {
 					int count = ProjectDataHelper.getProjectsCount();
 					Log.d("ProjectMainFragment", "删除前剩余项目数" + count);
 					if (ProjectDataHelper.getProjectsCount() == 1) {
-						Toast.makeText(mActivity, "至少需要有一个默认项目，删除失败!", Toast.LENGTH_SHORT).show();
+						mActivity.showToast("至少需要有一个默认项目，删除失败!");
 					} else {
 						ProjectDataHelper.deleteProject(project);
 						if (BaseConfig.instance.defaultProjectId == project.getId()) {
@@ -131,14 +130,15 @@ public class ProjectMainFragment extends Fragment {
 			adapter.setOnEditClickListener(new MyProjectAdapter.OnClickListener() {
 				@Override
 				public void onClick(Project project) {
-					Toast.makeText(getActivity(), project.getName() + "- 编辑",
-							Toast.LENGTH_SHORT).show();
+					mActivity.getGlobal().newProject = project;
+					gotoIntroFragment();
 				}
 			});
 
 			btnProjectAdd.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					mActivity.getGlobal().newProject = new Project();
 					gotoIntroFragment();
 				}
 			});

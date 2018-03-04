@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.reimbursementhelper.R;
 import com.reimbursementhelper.base.BaseActivity;
@@ -64,8 +63,7 @@ public class ItemSelectActivity extends BaseActivity implements ItemSelectConstr
 						double value = Double.parseDouble(money.getText().toString());
 						//判断是否重复
 						if (mPresenter.isItemDuplicated(key)) {
-							Toast.makeText(ItemSelectActivity.this, "条目重复！",
-									Toast.LENGTH_SHORT).show();
+							showToast("条目重复！");
 							return;
 						}
 						//添加
@@ -85,8 +83,6 @@ public class ItemSelectActivity extends BaseActivity implements ItemSelectConstr
 							public void onClick(View v) {
 								//删除条目
 								String key = use.getText().toString();
-								Toast.makeText(ItemSelectActivity.this, "删除" + key,
-										Toast.LENGTH_SHORT).show();
 								mPresenter.removeItem(key);
 								lilItemContainer.removeView(child);
 							}
@@ -128,7 +124,6 @@ public class ItemSelectActivity extends BaseActivity implements ItemSelectConstr
 
 	void addItem() {
 		addDialog.show();
-		Toast.makeText(this, "dialog showing", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

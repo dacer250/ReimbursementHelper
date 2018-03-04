@@ -227,7 +227,28 @@ public class ProjectDataHelper {
 		XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(getProjectsFile()), format);
 		xmlWriter.write(document);
 		xmlWriter.close();
+		Log.d("ProjectDataHelper", "添加成功" + project);
 	}
+
+//	public static void updateProject(Project project) {
+//		try {
+//			Document document = new SAXReader().read(getProjectsFile());
+//			int id = project.getId();
+//			String xpath = String.format("/projectList/project[@id='%d']", id);
+//			Element projectElement = (Element) document.selectSingleNode(xpath);
+//
+//			OutputFormat format = OutputFormat.createPrettyPrint();
+//			format.setEncoding("utf-8");
+//			XMLWriter xmlWriter = null;
+//			xmlWriter = new XMLWriter(new FileOutputStream(getProjectsFile()), format);
+//			xmlWriter.write(document);
+//			xmlWriter.close();
+//		} catch (IOException | DocumentException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Log.d("ProjectDataHelper", "修改成功");
+//	}
 
 	/**
 	 * 保存修改剩余预算后的项目，根据序号决定修改对象

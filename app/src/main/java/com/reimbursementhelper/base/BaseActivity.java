@@ -3,6 +3,7 @@ package com.reimbursementhelper.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
@@ -20,6 +21,17 @@ public abstract class BaseActivity extends AppCompatActivity{
 		initView();
 		initListener();
 		initData();
+	}
+
+	Toast toast;
+
+	public void showToast(String msg) {
+		if (toast == null) {
+			toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+		} else {
+			toast.setText(msg);
+		}
+		toast.show();
 	}
 
 	public abstract void initToolbar();
