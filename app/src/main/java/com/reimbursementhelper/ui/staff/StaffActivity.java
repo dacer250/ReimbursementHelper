@@ -28,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 删除键会不小心按到
+ * 人员活动
  */
 public class StaffActivity extends BaseActivity {
 
@@ -191,7 +191,9 @@ public class StaffActivity extends BaseActivity {
 	public void refresh() {
 		//重新抓取人员数据
 		staffList.clear();
-		staffList.addAll(StaffDataHelper.getStaffList());
+		List<Staff> staffListNew = StaffDataHelper.getStaffList();
+		Log.d("StaffActivity", "staffListNew:" + staffListNew);
+		staffList.addAll(staffListNew);
 		adapter.notifyDataSetChanged();
 		//重置按钮状态
 		btnStaffAdd.setVisibility(View.VISIBLE);

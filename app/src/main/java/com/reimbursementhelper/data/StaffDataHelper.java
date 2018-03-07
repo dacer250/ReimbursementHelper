@@ -7,6 +7,7 @@ import org.litepal.crud.DataSupport;
 import java.util.List;
 
 /**
+ * 人员数据操作类
  * @author mingC
  * @date 2018/3/1
  */

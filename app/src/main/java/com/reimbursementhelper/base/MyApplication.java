@@ -7,10 +7,12 @@ import com.reimbursementhelper.util.Util;
 import org.litepal.LitePalApplication;
 
 /**
+ * 应用
  * @author mingC
  * @date 2018/2/13
  */
 public class MyApplication extends LitePalApplication{
+	//全局信息
 	private Global mGlobal;
 
 	@Override

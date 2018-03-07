@@ -10,10 +10,12 @@ import com.reimbursementhelper.data.StaffDataHelper;
 import java.io.File;
 
 /**
+ * 项目配置信息类，使用方法：BaseConfig.instance.xx()
  * @author mingC
  * @date 2018/2/13
  */
 public class BaseConfig {
+	//BaseConfig的实例
 	public static BaseConfig instance;
 
 	private Context mContext;
@@ -23,11 +25,15 @@ public class BaseConfig {
 	public int defaultProjectId = 1;
 	//默认人员序号
 	public int defaultStaffId = 1;
-
+	//报销审批单输出目录
 	public File itemOutputDir;
-
+	//报账申请表输出目录
 	public File budgetOutputDir;
 
+	/**
+	 * 构造方法
+	 * @param context
+	 */
 	public BaseConfig(Context context) {
 		mContext = context;
 		itemOutputDir = new File(Environment.getExternalStorageDirectory(), "/报销助手/费用报销单输出");

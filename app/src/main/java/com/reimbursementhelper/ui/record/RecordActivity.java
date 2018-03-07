@@ -24,6 +24,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 
+/**
+ * 记录活动
+ */
 public class RecordActivity extends BaseActivity {
 
 	@BindView(R.id.lv_record)
@@ -68,7 +71,7 @@ public class RecordActivity extends BaseActivity {
 					public boolean onMenuItemClick(MenuItem item) {
 						if (item.getItemId() == R.id.menu_record_item_del) {
 							//删除
-							int recordId = Integer.parseInt(itemList.get(position).get("id"));
+							int recordId = recordList.get(position).getId();
 							int result = DataSupport.delete(Record.class, recordId);
 							if (result == 1) {
 								showToast("删除成功");
@@ -114,16 +117,18 @@ public class RecordActivity extends BaseActivity {
 		updateItemList();
 	}
 
+	List<Record> recordList;
 	private void updateItemList() {
 		//清空
 		itemList.clear();
 		//抓取
-		List<Record> recordList = DataSupport.findAll(Record.class);
+		recordList = DataSupport.findAll(Record.class);
 		Log.d("RecordActivity", "所有记录：");
 		Log.d("RecordActivity", "recordList:" + recordList);
+		int id = 1;
 		for (Record record : recordList) {
 			Map<String, String> map = new HashMap<>();
-			map.put("id", record.getId() + "");
+			map.put("id", String.valueOf(id++));
 			map.put("project",record.getProject());
 			map.put("staff", record.getStaff());
 			map.put("reimb", record.getReimb() + "");

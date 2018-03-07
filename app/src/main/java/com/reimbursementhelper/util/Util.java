@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
+ * 通用工具类
  * @author mingC
  * @date 2018/2/13
  */

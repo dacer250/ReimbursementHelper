@@ -21,6 +21,9 @@ import com.reimbursementhelper.ui.reimb.ReimbActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 报销活动
+ */
 public class ItemSelectActivity extends BaseActivity implements ItemSelectConstract.View {
 
 	@BindView(R.id.lil_item_container)
@@ -91,12 +94,6 @@ public class ItemSelectActivity extends BaseActivity implements ItemSelectConstr
 				}).setCancelable(false).create();
 	}
 
-	/**
-	 * 更新界面
-	 */
-	void updateView() {
-
-	}
 
 	@Override
 	public void initListener() {

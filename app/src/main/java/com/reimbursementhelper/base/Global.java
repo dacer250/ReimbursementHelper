@@ -75,6 +75,7 @@ public class Global {
 		curStaff = staff;
 	}
 
+	//初始化测试数据
 	private void initStaff() {
 		List<Staff> list = DataSupport.findAll(Staff.class);
 		if (list.size() != 0) {

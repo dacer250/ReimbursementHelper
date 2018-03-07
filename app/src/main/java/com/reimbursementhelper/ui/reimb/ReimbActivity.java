@@ -28,6 +28,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 
+/**
+ * 填单活动
+ */
 public class ReimbActivity extends BaseActivity {
 
 	ReimbPresenter mPresenter = new ReimbPresenter(this);

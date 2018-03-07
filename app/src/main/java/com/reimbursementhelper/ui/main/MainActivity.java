@@ -23,6 +23,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 主界面活动
+ */
 public class MainActivity extends BaseActivity implements MainConstract.View {
 
 
@@ -45,7 +48,7 @@ public class MainActivity extends BaseActivity implements MainConstract.View {
 		mPresenter.bindView(this);
 		//权限申请
 		if (ContextCompat.checkSelfPermission(MainActivity.this,
-				Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) //还没获取到拨电话权限
+				Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
 		{
 			ActivityCompat.requestPermissions(MainActivity.this,
 					new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); //参数：上下文，权限列表，请求码
@@ -88,7 +91,6 @@ public class MainActivity extends BaseActivity implements MainConstract.View {
 
 	@Override
 	public void initData() {
-
 	}
 
 	@OnClick({R.id.rv_main_staff, R.id.rv_main_project, R.id.rv_main_reimb, R.id.rv_main_record})

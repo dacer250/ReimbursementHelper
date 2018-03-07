@@ -72,7 +72,8 @@ public class MyProjectAdapter extends BaseAdapter{
 		TextView tvCategory = (TextView) view.findViewById(R.id.tv_project_category);
 		TextView tvEdit = (TextView) view.findViewById(R.id.tv_project_edit);
 		TextView tvDel = (TextView) view.findViewById(R.id.tv_project_del);
-		tvId.setText(String.valueOf(project.getId()));
+		//tvId.setText(String.valueOf(project.getId()));
+		tvId.setText(String.valueOf(position+1));
 		tvName.setText(project.getName());
 		tvCategory.setText(project.getCategory());
 		tvEdit.setOnClickListener(new View.OnClickListener() {

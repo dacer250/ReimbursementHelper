@@ -8,6 +8,7 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 
 /**
+ * 所有活动的基类，封装了活动常用方法
  * @author mingC
  * @date 2018/2/13
  */
@@ -25,6 +26,10 @@ public abstract class BaseActivity extends AppCompatActivity{
 
 	Toast toast;
 
+	/**
+	 * 显示Toast信息，后调用此方法的toast会覆盖前一个调用的toast
+	 * @param msg
+	 */
 	public void showToast(String msg) {
 		if (toast == null) {
 			toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
@@ -34,6 +39,9 @@ public abstract class BaseActivity extends AppCompatActivity{
 		toast.show();
 	}
 
+	/**
+	 * 对标题栏的初始化应在这里进行
+	 */
 	public abstract void initToolbar();
 
 	public Global getGlobal() {
@@ -54,4 +62,5 @@ public abstract class BaseActivity extends AppCompatActivity{
 
 	/** 初始数据的代码 */
 	public abstract void initData();
+
 }

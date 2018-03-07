@@ -186,6 +186,7 @@ public class StaffEditFragment extends Fragment {
 					int max = StaffDataHelper.getMaxStaffId();
 					Log.d("StaffEditFragment", "Staff最大Id：" + max);
 					staff.setId(max + 1);
+					Log.d("StaffEditFragment", "新添加人员staff:" + staff);
 					result = StaffDataHelper.addStaff(staff);
 				} else {
 					//编辑

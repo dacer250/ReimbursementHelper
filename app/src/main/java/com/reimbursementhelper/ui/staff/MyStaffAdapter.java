@@ -1,6 +1,7 @@
 package com.reimbursementhelper.ui.staff;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,29 +60,31 @@ public class MyStaffAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final Staff staff = mStaffList.get(position);
-		View view = layoutInflater.inflate(R.layout.item_staff, null);
-			TextView tvId = (TextView) view.findViewById(R.id.tv_staff_id);
-			TextView tvName = (TextView) view.findViewById(R.id.tv_staff_name);
-			TextView tvEdit = (TextView) view.findViewById(R.id.tv_staff_edit);
-			TextView tvDel = (TextView) view.findViewById(R.id.tv_staff_del);
-			tvId.setText("" + staff.getId());
-			tvName.setText(staff.getName());
-			tvEdit.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (onEditClickListener != null) {
-						onEditClickListener.onClick(staff);
-					}
+		Log.d("MyStaffAdapter", "getView:" + staff);
+		View view = layoutInflater.inflate(R.layout.item_staff, parent, false);
+		TextView tvId = (TextView) view.findViewById(R.id.tv_staff_id);
+		TextView tvName = (TextView) view.findViewById(R.id.tv_staff_name);
+		TextView tvEdit = (TextView) view.findViewById(R.id.tv_staff_edit);
+		TextView tvDel = (TextView) view.findViewById(R.id.tv_staff_del);
+		tvName.setText(staff.getName());
+		tvEdit.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (onEditClickListener != null) {
+					onEditClickListener.onClick(staff);
 				}
-			});
-			tvDel.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (onDelClickListener != null) {
-						onDelClickListener.onClick(staff);
-					}
+			}
+		});
+		tvDel.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (onDelClickListener != null) {
+					onDelClickListener.onClick(staff);
 				}
-			});
+			}
+		});
+		//由于litepal不允许修改id，所以这里的序号显示跟数据库存储的id不一致
+		tvId.setText(String.valueOf(position+1));
 
 		TextView tvDefault = (TextView) view.findViewById(R.id.tv_staff_default);
 		if (BaseConfig.instance.defaultStaffId == staff.getId()) {
